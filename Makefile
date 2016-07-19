@@ -49,4 +49,5 @@ install-xubuntu:
 	sudo apt-get install xubuntu-desktop gksu leafpad synaptic
 
 link-dotfiles:
-	ln -fs ~/dotfiles/public/.vimrc .
+	dots=($(ls -A ~/.dotfiles/private/)  $(ls -A ~/.dotfiles/public/))
+	for f in ${dots}; do ln -s $f ${HOME}/; done && ls -al ${HOME}
