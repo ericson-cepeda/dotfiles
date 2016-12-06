@@ -19,7 +19,7 @@ config-nvim:
 
 config-osx:
         # ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	brew install ruby ncurses fzf zsh
+	brew install ruby fzf zsh
 	/usr/local/bin/gem install curses
 
 config-ubuntu:
