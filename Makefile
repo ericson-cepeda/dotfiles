@@ -18,6 +18,7 @@ config-nvim:
 	ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 config-osx:
+        # ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew install ruby ncurses fzf zsh
 	/usr/local/bin/gem install curses
 
