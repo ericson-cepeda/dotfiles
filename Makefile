@@ -1,3 +1,6 @@
+#!/bin/bash
+SHELL := /bin/bash
+
 all: config install-fonts install-neobundle
 
 config-nvim-osx:
@@ -27,10 +30,10 @@ config-ubuntu:
 config:
 	# %sudo	ALL=(ALL) NOPASSWD:ALL
 	cd ~
-	wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.vimrc -O .vimrc
-	wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.tmux.conf -O .tmux.conf
+	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.vimrc -O .vimrc
+	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.tmux.conf -O .tmux.conf
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.zshrc -O .zshrc
+	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.zshrc -O .zshrc
 	sudo chsh -s "$(command -v zsh)" "${USER}" || sudo usermod -s "$(command -v zsh)" "${USER}"
 	sudo chsh -s $(which zsh) || sudo usermod -s $(which zsh)
 
@@ -49,5 +52,7 @@ install-xubuntu:
 	sudo apt-get install xubuntu-desktop gksu leafpad synaptic
 
 link-dotfiles:
-	dots=($(ls -A ~/.dotfiles/private/)  $(ls -A ~/.dotfiles/public/))
-	for f in ${dots}; do ln -s $f ${HOME}/; done && ls -al ${HOME}
+	dots_private=( $(ls -A ${HOME}/.dotfiles/private/) )
+	dots_public=( $(ls -A ${HOME}/.dotfiles/public/) )
+	for f in "${dots_private[@]}"; do ln -fs ${HOME}/.dotfiles/private/$f ${HOME}/; done && \
+	for f in "${dots_public[@]}"; do ln -fs ${HOME}/.dotfiles/public/$f ${HOME}/; done && ls -al ${HOME}

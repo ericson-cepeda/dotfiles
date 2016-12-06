@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/ericsoncepeda/.oh-my-zsh
+export ZSH=/home/$(whoami)/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -214,3 +214,7 @@ alias vim="vim -x"
 stty -ixon
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval $(ssh-agent); ssh-add ~/.ssh/ecepeda_bv_rsa; ssh-add ~/.ssh/contentops-prod.pem
+alias sshpf="ssh -L 8081:10.100.49.73:8081 -L 3314:dataportal-prod-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3312:cms-modportal-test-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3310:contentops-cms.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3308:analytics.db.cms.bazaarvoice.com:3306 -L 5557:mongodb-catalog-processor-b1-bazaar-set1-rel1:27017 -L 8111:10.100.49.73:8080 10.100.49.73.prod.us-east-1.nexus"
+
