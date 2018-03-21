@@ -1,6 +1,6 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/$(whoami)/.oh-my-zsh
-
+export ZSH=${HOME}/.oh-my-zsh
+export $(cat ${HOME}/.env |xargs)
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -216,5 +216,11 @@ stty -ixon
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval $(ssh-agent); ssh-add ~/.ssh/ecepeda_bv_rsa; ssh-add ~/.ssh/contentops-prod.pem
-alias sshpf="ssh -L 8081:10.100.49.73:8081 -L 3314:dataportal-prod-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3312:cms-modportal-test-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3310:contentops-cms.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3308:analytics.db.cms.bazaarvoice.com:3306 -L 5557:mongodb-catalog-processor-b1-bazaar-set1-rel1:27017 -L 8111:10.100.49.73:8080 10.100.49.73.prod.us-east-1.nexus"
+alias sshpf="ssh -L 8081:10.100.49.103:8081 -L 3314:dataportal-prod-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3312:cms-modportal-test-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3310:contentops-cms.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3308:analytics.db.cms.bazaarvoice.com:3306 -L 5557:mongodb-catalog-processor-b1-bazaar-set1-rel1:27017 -L 8111:10.100.49.103:8080 10.100.49.103.prod.us-east-1.nexus"
 
+
+PATH="/home/ecepeda/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/ecepeda/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/ecepeda/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/ecepeda/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/ecepeda/perl5"; export PERL_MM_OPT;

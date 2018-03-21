@@ -6,7 +6,7 @@ all: config install-fonts install-neobundle
 osx:
 	brew install python --framework
 	sudo easy_install pip
-        # ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	# ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew install ruby fzf zsh
 	/usr/local/bin/gem install curses
 
@@ -20,7 +20,11 @@ nvim:
 	ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 	ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
-ubuntu:
+config-osx:
+	brew install ruby ncurses fzf zsh ctags
+	/usr/local/bin/gem install curses
+
+config-ubuntu:
 	sudo apt-get install -y ruby ruby-dev build-essential vim libncurses-dev make git-core tmux exuberant-ctags zsh
 	sudo gem install curses
 

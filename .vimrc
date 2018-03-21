@@ -174,6 +174,8 @@ set modifiable
 set fileformats=unix
 set ff=unix
 set fileencodings=utf-8
+set encoding=UTF-8
+scriptencoding utf-8
 set mouse=nicr
 if &term =~ '^screen' && !has('nvim')
     " tmux knows the extended mouse mode
@@ -208,7 +210,7 @@ au BufRead,BufNewFile *.scss set filetype=scss
 
 " au VimEnter * so $HOME/.vimrc  " Uncomment: OSX does not get mouse events.
 "let g:nerdtree_tabs_open_on_console_startup=1
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 map <C-x> :NERDTreeToggle<CR>
 let g:gitgutter_enabled = 1
 
@@ -222,7 +224,7 @@ set showmode
 
 "" display things like newlines, carriage returns, whitespace, etc...
 set listchars=""
-set listchars+=tab:▸\
+set listchars+=tab:>\
 " set listchars+=eol:¬
 set listchars+=trail:.
 set listchars+=extends:>
