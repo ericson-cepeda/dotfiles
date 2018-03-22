@@ -207,7 +207,8 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 export TERM=xterm-256color
 [ -n "$TMUX" ] && export TERM=screen-256color
-alias tmux="tmux -2"
+alias tmux="tmux -2u"
+alias tmub="tmux -2uL base attach || tmux -2uL base new"
 alias vim="vim -x"
 
 # Disable Software Flow Control (XON/XOFF flow control)
