@@ -1,27 +1,35 @@
 #!/bin/bash
 SHELL := /bin/bash
 
+DIR := $(shell cd "$(dirname "$0" | echo '')" && pwd)
+LINK := $(shell readlink Makefile)
+DIR_LINK_AUX := ${DIR}/$(shell dirname ${LINK})
+DIR_LINK := $(if ${DIR},${DIR_LINK_AUX:/=},${LINK})
+
 all: config install-fonts install-neobundle
+
+all-osx: osx config config-osx nvim vim-plug fonts
 
 osx:
 	brew install python --framework
 	sudo easy_install pip
 	# ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew install ruby fzf zsh
-	/usr/local/bin/gem install curses
 
 nvim-ubuntu:
 	sudo add-apt-repository ppa:neovim-ppa/unstable
 	sudo apt-get install neovim
 
 nvim:
-	pip install neovim
+	pip install -U neovim
+	# https://github.com/neovim/neovim/issues/8202
+	pip3 install -U neovim
 	mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
 	ln -s ~/.vim $XDG_CONFIG_HOME/nvim
 	ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
 
 config-osx:
-	brew install ruby ncurses fzf zsh ctags
+	brew install ncurses ctags vim neovim
 	/usr/local/bin/gem install curses
 
 config-ubuntu:
@@ -44,6 +52,13 @@ neobundle:
 	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install-neobundle.sh
 	sh ./install-neobundle.sh
 	vim +NeoBundleInstall
+	
+vim-plug:
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	vim +PlugInstall
 
 fonts:
 	git clone https://github.com/powerline/fonts.git powerline-fonts | true
@@ -55,7 +70,7 @@ install-xubuntu:
 	sudo apt-get install xubuntu-desktop gksu leafpad synaptic
 
 link-dotfiles:
-	dots_private=( $(ls -A ${HOME}/.dotfiles/private/) )
-	dots_public=( $(ls -A ${HOME}/.dotfiles/public/) )
-	for f in "${dots_private[@]}"; do ln -fs ${HOME}/.dotfiles/private/$f ${HOME}/; done && \
-	for f in "${dots_public[@]}"; do ln -fs ${HOME}/.dotfiles/public/$f ${HOME}/; done && ls -al ${HOME}
+	dots_private=( $(ls -A ${DIR_LINK}/.dotfiles/private/) )
+	dots_public=( $(ls -A ${DIR_LINK}/.dotfiles/public/) )
+	for f in "${dots_private[@]}"; do ln -fs ${DIR_LINK}/.dotfiles/private/$f ${HOME}/; done && \
+	for f in "${dots_public[@]}"; do ln -fs ${DIR_LINK}/.dotfiles/public/$f ${HOME}/; done && ls -al ${HOME}

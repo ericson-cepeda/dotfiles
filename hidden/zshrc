@@ -8,7 +8,7 @@ export $(cat ${HOME}/.env |xargs)
 ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -52,8 +52,9 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 
 # User configuration
+export WORKON_HOME=$HOME/repos/.virtualenvs
 
-  export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -202,6 +203,10 @@ dalias() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/[
 # Bash into running container
 dbash() { docker exec -it $(docker ps -aqf "name=$1") bash }
 
+# Create or attach a tmux socket at $HOME
+# Tip: aliases cannot handle interpolation or positional arguments
+tmus() { tmux -2uS ${HOME}/.tmux_session_$@ attach || tmux -2uS ${HOME}/.tmux_session_$@ new }
+
 # VIM
 export VISUAL=vim
 export EDITOR="$VISUAL"
@@ -209,19 +214,21 @@ export TERM=xterm-256color
 [ -n "$TMUX" ] && export TERM=screen-256color
 alias tmux="tmux -2u"
 alias tmub="tmux -2uL base attach || tmux -2uL base new"
+alias tmug="echo $TMUX | cut -f1 -d','"
+alias tmur="tmux source-file ~/.tmux.conf"
 alias vim="vim -x"
+
+alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
+alias scp='noglob scp'
 
 # Disable Software Flow Control (XON/XOFF flow control)
 stty -ixon
 
+GPG_TTY=$(tty)
+export GPG_TTY
+
+eval $(ssh-agent); chmod 600 $HOME/.ssh/*{.pem,_rsa}; ssh-add ~/.ssh/*{.pem,_rsa};
+
+[ -f ~/.env.zsh ] && source ~/.env.zsh
+[ -f ~/.dev.zsh ] && source ~/.dev.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-eval $(ssh-agent); ssh-add ~/.ssh/ecepeda_bv_rsa; ssh-add ~/.ssh/contentops-prod.pem
-alias sshpf="ssh -L 8081:10.100.49.103:8081 -L 3314:dataportal-prod-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3312:cms-modportal-test-db.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3310:contentops-cms.cda6qtrsyk9c.us-east-1.rds.amazonaws.com:3306 -L 3308:analytics.db.cms.bazaarvoice.com:3306 -L 5557:mongodb-catalog-processor-b1-bazaar-set1-rel1:27017 -L 8111:10.100.49.103:8080 10.100.49.103.prod.us-east-1.nexus"
-
-
-PATH="/home/ecepeda/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/ecepeda/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/ecepeda/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/ecepeda/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/ecepeda/perl5"; export PERL_MM_OPT;
