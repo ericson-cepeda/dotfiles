@@ -1,1 +1,2 @@
-HISTFILE="/Users/${USER}/.dotfiles/private/zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
