@@ -1,10 +1,10 @@
-#!/bin/bash
-SHELL := /bin/bash
+.SHELL=bash
 
 DIR := $(shell cd "$(dirname "$0" | echo '')" && pwd)
 LINK := $(shell readlink Makefile)
 DIR_LINK_AUX := ${DIR}/$(shell dirname ${LINK})
 DIR_LINK := $(if ${DIR},${DIR_LINK_AUX:/=},${LINK})
+DIR_LINK_FUNC := ${DIR_LINK}/make_func.sh
 
 all: config install-fonts install-neobundle
 
@@ -70,7 +70,5 @@ install-xubuntu:
 	sudo apt-get install xubuntu-desktop gksu leafpad synaptic
 
 link-dotfiles:
-	dots_private=( $(ls -A ${DIR_LINK}/.dotfiles/private/) )
-	dots_public=( $(ls -A ${DIR_LINK}/.dotfiles/public/) )
-	for f in "${dots_private[@]}"; do ln -fs ${DIR_LINK}/.dotfiles/private/$f ${HOME}/; done && \
-	for f in "${dots_public[@]}"; do ln -fs ${DIR_LINK}/.dotfiles/public/$f ${HOME}/; done && ls -al ${HOME}
+	@echo ${DIR_LINK}
+	${DIR_LINK_FUNC} _link_dotfiles ${DIR_LINK}
