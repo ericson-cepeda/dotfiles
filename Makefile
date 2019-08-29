@@ -8,10 +8,10 @@ DIR_LINK_FUNC := ${DIR_LINK}/make_func.sh
 
 all: config install-fonts install-neobundle
 
-all-osx: osx config config-osx nvim vim-plug fonts
+all-osx: osx config config-osx link-dotfiles nvim vim-plug fonts
 
 osx:
-	brew install python --framework
+	brew install python
 	sudo easy_install pip
 	# ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew install ruby fzf zsh
@@ -21,16 +21,16 @@ nvim-ubuntu:
 	sudo apt-get install neovim
 
 nvim:
-	pip install -U neovim
+	#pip install -U neovim
 	# https://github.com/neovim/neovim/issues/8202
 	pip3 install -U neovim
-	mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}
-	ln -s ~/.vim $XDG_CONFIG_HOME/nvim
-	ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim
+	$(shell mkdir -p ${XDG_CONFIG_HOME:=${HOME}/.config})
+	ln -s ~/.vim ${XDG_CONFIG_HOME:=${HOME}}/.config/nvim
+	ln -s ~/.vimrc ${XDG_CONFIG_HOME:=${HOME}}/.config/nvim/init.vim
 
 config-osx:
 	brew install ncurses ctags vim neovim
-	/usr/local/bin/gem install curses
+	sudo gem install curses
 
 config-ubuntu:
 	sudo apt-get install -y ruby ruby-dev build-essential vim libncurses-dev make git-core tmux exuberant-ctags zsh
@@ -43,8 +43,8 @@ config:
 	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.tmux.conf -O .tmux.conf
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.zshrc -O .zshrc
-	sudo chsh -s "$(command -v zsh)" "${USER}" || sudo usermod -s "$(command -v zsh)" "${USER}"
-	sudo chsh -s $(which zsh) || sudo usermod -s $(which zsh)
+	sudo chsh -s "$(shell command -v zsh)" "${USER}" || sudo usermod -s "$(shell command -v zsh)" "${USER}"
+	sudo chsh -s $(shell which zsh) || sudo usermod -s $(shell which zsh)
 	git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf || true
 	${HOME}/.fzf/install
 
@@ -52,7 +52,7 @@ neobundle:
 	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install-neobundle.sh
 	sh ./install-neobundle.sh
 	vim +NeoBundleInstall
-	
+
 vim-plug:
 	curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
