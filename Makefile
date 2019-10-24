@@ -11,9 +11,9 @@ all: config install-fonts install-neobundle
 all-osx: osx config config-osx link-dotfiles nvim vim-plug fonts
 
 osx:
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew install python
 	sudo easy_install pip
-	# ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	brew install ruby fzf zsh
 
 nvim-ubuntu:
@@ -47,7 +47,10 @@ config:
 	sudo chsh -s $(shell which zsh) || sudo usermod -s $(shell which zsh)
 	git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf || true
 	${HOME}/.fzf/install
+	# ZSH plugins
 	git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 neobundle:
 	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install-neobundle.sh
@@ -69,6 +72,9 @@ fonts:
 
 install-xubuntu:
 	sudo apt-get install xubuntu-desktop gksu leafpad synaptic
+
+install-osx-kube:
+    brew install kubectl kubectx
 
 link-dotfiles:
 	@echo ${DIR_LINK}
