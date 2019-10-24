@@ -47,6 +47,7 @@ config:
 	sudo chsh -s $(shell which zsh) || sudo usermod -s $(shell which zsh)
 	git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf || true
 	${HOME}/.fzf/install
+	git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 
 neobundle:
 	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install-neobundle.sh
