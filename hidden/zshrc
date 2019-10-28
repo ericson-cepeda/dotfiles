@@ -1,3 +1,4 @@
+# zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -12,6 +13,7 @@ export $(cat ${HOME}/.env |xargs)
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 ZSH_THEME=powerlevel10k/powerlevel10k
+# ZSH_THEME="bira"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -73,14 +75,38 @@ CASE_SENSITIVE="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  # themes
+  # colored-man-pages colorize
+  # pip pipenv python pep8
+  # npm
+  # docker-compose
   kube-ps1
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
+case `uname` in
+  Darwin)
+    # commands for OS X go here
+  ;;
+  Linux)
+    # commands for Linux go here
+  ;;
+  FreeBSD)
+    # commands for FreeBSD go here
+  ;;
+esac
+
+setopt prompt_subst
 source $ZSH/oh-my-zsh.sh
 
-PROMPT=${PROMPT}'$(kube_ps1) '
+# PROMPT=${PROMPT}'$(kube_ps1) '
+# PROMPT='$FG[237]${(l:$COLUMNS::=:):-}%{$reset_color%}'
+
+# bira theme promp
+# PROMPT="╭─ ${user_host}"'$(kube_ps1)'" ${current_dir}${rvm_ruby}${git_branch}${venv_prompt}
+# ╰─%B ${user_symbol}%b "
+# RPROMPT="%B${return_code}%b"
 
 # User configuration
 export WORKON_HOME=$HOME/repos/.virtualenvs
@@ -280,3 +306,10 @@ eval $(ssh-agent); chmod 600 $HOME/.ssh/*{.pem,_rsa}; ssh-add ~/.ssh/*{.pem,_rsa
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# https://github.com/Powerlevel9k/powerlevel9k/issues/992
+# https://github.com/romkatv/powerlevel10k/issues/175
+POWERLEVEL9K_DISABLE_RPROMPT=true
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs background_jobs virtualenv anaconda pyenv nodenv nvm nodeenv rbenv rvm kubecontext terraform aws context nordvpn ranger status newline command_execution_time prompt_char)
+# POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+# POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+# zprof
