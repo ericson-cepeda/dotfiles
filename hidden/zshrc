@@ -309,7 +309,12 @@ eval $(ssh-agent); chmod 600 $HOME/.ssh/*{.pem,_rsa}; ssh-add ~/.ssh/*{.pem,_rsa
 # https://github.com/Powerlevel9k/powerlevel9k/issues/992
 # https://github.com/romkatv/powerlevel10k/issues/175
 POWERLEVEL9K_DISABLE_RPROMPT=true
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs background_jobs virtualenv anaconda pyenv nodenv nvm nodeenv rbenv rvm kubecontext terraform aws context nordvpn ranger status newline command_execution_time prompt_char)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    host public_ip vpn_ip kubecontext terraform aws context nordvpn ranger newline
+    dir vcs background_jobs virtualenv anaconda pyenv nodenv nvm nodeenv rbenv rvm newline
+    command_execution_time status prompt_char)
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
+POWERLEVEL9K_PUBLIC_IP_HOST=http://checkip.amazonaws.com
+POWERLEVEL9K_PUBLIC_IP_TIMEOUT=60
 # zprof

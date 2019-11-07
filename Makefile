@@ -29,7 +29,7 @@ nvim:
 	ln -s ~/.vimrc ${XDG_CONFIG_HOME:=${HOME}}/.config/nvim/init.vim
 
 config-osx:
-	brew install ncurses ctags vim neovim
+	brew install ncurses ctags vim neovim ag
 	sudo gem install curses
 
 config-ubuntu:
