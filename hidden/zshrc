@@ -1,3 +1,4 @@
+# Uncomment this and last line for startup profiling
 # zmodload zsh/zprof
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -79,9 +80,11 @@ plugins=(
   # colored-man-pages colorize
   # pip pipenv python pep8
   # npm
-  # docker-compose
-  kube-ps1
-  zsh-autosuggestions
+  docker docker-compose
+  vscode
+  aws
+  kubectl kube-ps1
+  fzf zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
@@ -317,4 +320,5 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
 # POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
 POWERLEVEL9K_PUBLIC_IP_HOST=http://checkip.amazonaws.com
 POWERLEVEL9K_PUBLIC_IP_TIMEOUT=60
+# Init profiling
 # zprof
