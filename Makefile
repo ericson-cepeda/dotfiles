@@ -11,10 +11,10 @@ all: config install-fonts install-neobundle
 all-osx: osx config config-osx link-dotfiles nvim vim-plug fonts
 
 osx:
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || true
 	brew install python
 	sudo easy_install pip
-	brew install ruby fzf zsh
+	brew install ruby fzf zsh tmux
 
 nvim-ubuntu:
 	sudo add-apt-repository ppa:neovim-ppa/unstable
@@ -36,17 +36,16 @@ config-ubuntu:
 	sudo apt-get install -y ruby ruby-dev build-essential vim libncurses-dev make git-core tmux exuberant-ctags zsh
 	sudo gem install curses
 
+fzf-manual:
+	git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf || true
+	${HOME}/.fzf/install
+
 config:
 	# %sudo	ALL=(ALL) NOPASSWD:ALL
 	cd ~
-	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.vimrc -O .vimrc
-	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.tmux.conf -O .tmux.conf
 	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	#wget https://gist.githubusercontent.com/ericson-cepeda/41643edff07dd07d66d1/raw/.zshrc -O .zshrc
 	sudo chsh -s "$(shell command -v zsh)" "${USER}" || sudo usermod -s "$(shell command -v zsh)" "${USER}"
 	sudo chsh -s $(shell which zsh) || sudo usermod -s $(shell which zsh)
-	git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf || true
-	${HOME}/.fzf/install
 	# ZSH plugins
 	git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -76,7 +75,7 @@ install-xubuntu:
 	sudo apt-get install xubuntu-desktop gksu leafpad synaptic
 
 install-osx-kube:
-    brew install kubectl kubectx
+	brew install kubectl kubectx
 
 link-dotfiles:
 	@echo ${DIR_LINK}
