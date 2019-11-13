@@ -45,3 +45,13 @@ export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
 
 export PATH=/Library/TeX/texbin:$PATH
 
+# Golang
+export GOPATH="$HOME/go"
+PATH="$GOPATH/bin:$PATH"
+
+# GPG
+GPG_TTY=$(tty)
+export GPG_TTY
+
+# Pipenv
+export WORKON_HOME=$HOME/repos/.virtualenvs
