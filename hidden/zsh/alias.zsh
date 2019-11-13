@@ -130,11 +130,15 @@ dbash() { docker exec -it $(docker ps -aqf "name=$1") bash }
 # Tip: aliases cannot handle interpolation or positional arguments
 tmus() { tmux -2uS ${HOME}/.tmux_session_$@ attach || tmux -2uS ${HOME}/.tmux_session_$@ new }
 
+alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+
 alias tmux="tmux -2u"
 alias tmub="tmux -2uL base attach || tmux -2uL base new"
 alias tmug="echo $TMUX | cut -f1 -d','"
 alias tmur="tmux source-file ~/.tmux.conf"
+
 # alias vim="vim -x"
+alias -s {yml,yaml}=vim
 
 alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
 alias scp='noglob scp'

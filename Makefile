@@ -29,7 +29,7 @@ nvim:
 	ln -s ~/.vimrc ${XDG_CONFIG_HOME:=${HOME}}/.config/nvim/init.vim
 
 config-osx:
-	brew install ncurses ctags vim neovim ag
+	brew install ncurses ctags vim neovim ag getantibody/tap/antibody
 	sudo gem install curses
 
 config-ubuntu:
@@ -42,16 +42,17 @@ fzf-manual:
 
 config:
 	# %sudo	ALL=(ALL) NOPASSWD:ALL
-	cd ~
-	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	sudo chsh -s "$(shell command -v zsh)" "${USER}" || sudo usermod -s "$(shell command -v zsh)" "${USER}"
 	sudo chsh -s $(shell which zsh) || sudo usermod -s $(shell which zsh)
+	# tmux plugins
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+config-oh-my-zsh:
 	# ZSH plugins
+	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-	# tmux plugins
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 neobundle:
 	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install-neobundle.sh
