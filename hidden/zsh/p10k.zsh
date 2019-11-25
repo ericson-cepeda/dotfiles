@@ -10,6 +10,10 @@ POWERLEVEL9K_INSTANT_PROMPT=quiet
 # https://github.com/Powerlevel9k/powerlevel9k/issues/992
 # https://github.com/romkatv/powerlevel10k/issues/175
 POWERLEVEL9K_DISABLE_RPROMPT=true
+
+# Neutral color: ' %244F\uE0B1 '
+POWERLEVEL9K_LEFT_SUBSEGMENT_SEPARATOR=' \uE0B1 '
+POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
 #    host public_ip vpn_ip kubecontext terraform aws context nordvpn ranger newline
 #    dir vcs background_jobs virtualenv anaconda pyenv nodenv nvm nodeenv rbenv rvm newline

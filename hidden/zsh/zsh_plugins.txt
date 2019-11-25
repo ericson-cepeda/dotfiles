@@ -2,8 +2,10 @@ romkatv/powerlevel10k
 
 # this block is in alphabetic order
 robbyrussell/oh-my-zsh
-robbyrussell/oh-my-zsh path:plugins/fzf
 robbyrussell/oh-my-zsh path:plugins/aws
+robbyrussell/oh-my-zsh path:plugins/fzf
+robbyrussell/oh-my-zsh path:plugins/git
+robbyrussell/oh-my-zsh path:plugins/globalias
 
 rupa/z
 zsh-users/zsh-completions
