@@ -31,3 +31,11 @@ export TERM=xterm-256color
 export ZSH_AUTOSUGGEST_USE_ASYNC="true"  ## zsh-autosuggest
 
 export $(cat ${HOME}/.env |xargs)
+
+# Commands below are done through ZSH plugins using antibody
+# rbenv
+#eval "$(rbenv init -)"
+# pyenv
+#export PATH="/Users/ecepeda/.pyenv/bin:$PATH"
+#eval "$(pyenv init - --no-rehash)"
+#eval "$(pyenv virtualenv-init -)"
