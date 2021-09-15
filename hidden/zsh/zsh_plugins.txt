@@ -1,14 +1,15 @@
 romkatv/powerlevel10k
 
 # this block is in alphabetic order
-robbyrussell/oh-my-zsh
-robbyrussell/oh-my-zsh path:plugins/alias-finder
-robbyrussell/oh-my-zsh path:plugins/aws
-robbyrussell/oh-my-zsh path:plugins/fzf
-robbyrussell/oh-my-zsh path:plugins/git
-robbyrussell/oh-my-zsh path:plugins/pyenv
-robbyrussell/oh-my-zsh path:plugins/rbenv
-robbyrussell/oh-my-zsh path:plugins/globalias
+ohmyzsh/ohmyzsh
+ohmyzsh/ohmyzsh path:plugins/alias-finder
+ohmyzsh/ohmyzsh path:plugins/aws
+ohmyzsh/ohmyzsh path:plugins/fzf
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/pyenv
+# ohmyzsh/ohmyzsh path:plugins/rbenv
+ohmyzsh/ohmyzsh path:plugins/globalias
+ohmyzsh/ohmyzsh path:plugins/gcloud
 
 rupa/z
 zsh-users/zsh-completions
