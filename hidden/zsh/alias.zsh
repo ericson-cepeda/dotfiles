@@ -7,7 +7,7 @@
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias fzf="$HOME/.vim/bundle/fzf/fzf"
+# alias fzf="$HOME/.vim/bundle/fzf/fzf"
 # fh - repeat history
 _fh() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
