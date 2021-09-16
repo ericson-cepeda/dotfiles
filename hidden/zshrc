@@ -81,7 +81,7 @@ plugins=(
   # vscode
   # aws
   # kubectl kube-ps1
-  # fzf 
+  # fzf
   # zsh-autosuggestions
   # zsh-syntax-highlighting
 )

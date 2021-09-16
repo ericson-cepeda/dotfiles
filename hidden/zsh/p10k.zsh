@@ -19,7 +19,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
 #    dir vcs background_jobs virtualenv anaconda pyenv nodenv nvm nodeenv rbenv rvm newline
 #    command_execution_time status prompt_char
      time host public_ip vpn_ip kubecontext aws gcloud newline
-     dir vcs background_jobs virtualenv rbenv newline
+     dir vcs background_jobs virtualenv newline
      command_execution_time status prompt_char
 )
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
