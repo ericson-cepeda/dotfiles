@@ -10,6 +10,8 @@ ohmyzsh/ohmyzsh path:plugins/git
 # ohmyzsh/ohmyzsh path:plugins/rbenv
 ohmyzsh/ohmyzsh path:plugins/globalias
 ohmyzsh/ohmyzsh path:plugins/gcloud
+ohmyzsh/ohmyzsh path:plugins/history
+# ohmyzsh/ohmyzsh path:plugins/asdf
 
 rupa/z
 zsh-users/zsh-completions
@@ -18,3 +20,4 @@ zsh-users/zsh-autosuggestions
 # these should be at last!
 # zdharma/fast-syntax-highlighting
 zsh-users/zsh-history-substring-search
+zsh-users/zsh-syntax-highlighting

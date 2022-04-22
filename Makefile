@@ -11,10 +11,17 @@ all: config install-fonts install-neobundle
 all-osx: osx config config-osx link-dotfiles nvim vim-plug fonts
 
 osx:
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || true
-	brew install python
-	sudo easy_install pip
-	brew install ruby fzf zsh tmux
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || true
+	brew install python ruby asdf pyenv rbenv jenv pipenv warrensbox/tap/tfswitch
+	# sudo easy_install pip
+	brew install fzf zsh tmux
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true
+
+osx-apps:
+	brew install --cask authy lastpass visual-studio-code google-chrome
+
+osx-drivers:
+	brew install homebrew/cask-drivers/logitech-options
 
 nvim-ubuntu:
 	sudo add-apt-repository ppa:neovim-ppa/unstable
@@ -31,6 +38,9 @@ nvim:
 config-osx:
 	brew install ncurses ctags vim neovim ag getantibody/tap/antibody
 	sudo gem install curses
+
+config-tweaks-osx:
+	defaults write com.apple.dock autohide -bool true && defaults write com.apple.dock autohide-delay -float 0 && defaults write com.apple.dock autohide-time-modifier -float 0.8 && killall Dock
 
 config-ubuntu:
 	sudo apt-get install -y ruby ruby-dev build-essential vim libncurses-dev make git-core tmux exuberant-ctags zsh
