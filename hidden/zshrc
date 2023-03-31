@@ -89,11 +89,11 @@ plugins=(
 case `uname` in
   Darwin)
     # commands for OS X go here
-    export ZSH="${HOME}/Library/Caches/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh"
+    source /usr/local/opt/antidote/share/antidote/antidote.zsh
   ;;
   Linux)
     # commands for Linux go here
-    export ZSH="${HOME}/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-ohmyzsh-SLASH-ohmyzsh"
+    source ${ZDOTDIR:-~}/.antidote/antidote.zsh
   ;;
   FreeBSD)
     # commands for FreeBSD go here
@@ -169,9 +169,9 @@ source ~/.zsh/alias.zsh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 source ~/.zsh/p10k.zsh
 
-antibody bundle < ~/.zsh/zsh_plugins.txt > ~/.zsh_plugins.sh
+antidote bundle < ~/.zsh/zsh_plugins.txt > ~/.zsh_plugins.sh
 source ~/.zsh_plugins.sh
-#source <(antibody init)
+#source <(antidote init)
 
 #bindkey '^[[A' history-substring-search-up
 #bindkey '^[[B' history-substring-search-down

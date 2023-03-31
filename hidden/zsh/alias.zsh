@@ -145,4 +145,4 @@ alias -s {yml,yaml}=vim
 alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
 alias scp='noglob scp'
 
-alias update="antibody update && vim -c :PlugUpdate"
+alias update="antidote update && vim -c :PlugUpdate"

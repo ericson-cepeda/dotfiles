@@ -32,7 +32,7 @@ export ZSH_AUTOSUGGEST_USE_ASYNC="true"  ## zsh-autosuggest
 
 export $(cat ${HOME}/.env |xargs)
 
-# Commands below are done through ZSH plugins using antibody
+# Commands below are done through ZSH plugins using antidote
 # rbenv
 #eval "$(rbenv init -)"
 # pyenv
