@@ -1,7 +1,22 @@
 # Uncomment this and last line for startup profiling
 # zmodload zsh/zprof
 
-source ~/.zsh/vars.zsh
+# Compile zsh files if updated
+find -L ~/.zsh -type f -not -name "*.zwc" -print0 | while IFS= read -r -d '' file; do
+  if [[ -f "${file}.zwc" && "${file}.zwc" -nt "$file" ]]; then
+    continue
+  fi
+  zcompile "$file"
+done
+
+find -L $HOME \( -name "*.zsh" -o -name ".zshrc" \) -type f -maxdepth 1 -print0 | while IFS= read -r -d '' file; do
+  if [[ -f "${file}.zwc" && "${file}.zwc" -nt "$file" ]]; then
+    continue
+  fi
+  zcompile "$file"
+done
+
+builtin source ~/.zsh/vars.zsh
 
 # Path to your oh-my-zsh installation.
 
@@ -100,7 +115,7 @@ case `uname` in
   ;;
 esac
 
-source ~/.zsh/options.zsh
+builtin source ~/.zsh/options.zsh
 
 # https://callstack.com/blog/supercharge-your-terminal-with-zsh/
 # setopt auto_cd # cd by typing directory name if it's not a command
@@ -114,7 +129,7 @@ source ~/.zsh/options.zsh
 # zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
 
 # https://htr3n.github.io/2018/07/faster-zsh/
-autoload -Uz compinit
+# autoload -Uz compinit
 # if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
 #  compinit
 # else
@@ -129,12 +144,12 @@ autoload -Uz compinit
 
 # Execute code in the background to not affect the current session
 {
-  typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
-  if [ $(date +'%j') != $updated_at ]; then
-    compinit -i
-  else
-    compinit -C -i
-  fi
+  # typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
+  # if [ $(date +'%j') != $updated_at ]; then
+  #   compinit -i
+  # else
+  #   compinit -C -i
+  # fi
   # zmodload -i zsh/complist
 
   # Compile zcompdump, if modified, to increase startup speed.
@@ -154,10 +169,10 @@ autoload -Uz compinit
 
 # User configuration
 
-source ~/.zsh/alias.zsh
+builtin source ~/.zsh/alias.zsh
 
-[ -f ~/.env.zsh ] && source ~/.env.zsh
-[ -f ~/.dev.zsh ] && source ~/.dev.zsh
+[ -f ~/.env.zsh ] && builtin source ~/.env.zsh
+[ -f ~/.dev.zsh ] && builtin source ~/.dev.zsh
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # {
@@ -166,11 +181,15 @@ source ~/.zsh/alias.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # zprof = (anon) ~ 100ms
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source ~/.zsh/p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || builtin source ~/.p10k.zsh
+builtin source ~/.zsh/p10k.zsh
 
-antidote bundle < ~/.zsh/zsh_plugins.txt > ~/.zsh_plugins.sh
-source ~/.zsh_plugins.sh
+# Compile zsh plugins if updated
+if [[ ! -f ${ZDOTDIR:-~}/.zsh_plugins.sh || ${ZDOTDIR:-~}/.zsh/zsh_plugins.txt -nt ${ZDOTDIR:-~}/.zsh_plugins.sh  ]]; then
+      antidote bundle < ~/.zsh/zsh_plugins.txt > ${ZDOTDIR:-~}/.zsh_plugins.sh
+      zcompile ${ZDOTDIR:-~}/.zsh_plugins.sh
+fi
+builtin source ~/.zsh_plugins.sh
 #source <(antidote init)
 
 #bindkey '^[[A' history-substring-search-up

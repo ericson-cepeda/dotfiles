@@ -18,7 +18,7 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
 #    host public_ip vpn_ip kubecontext terraform aws context nordvpn ranger newline
 #    dir vcs background_jobs virtualenv anaconda pyenv nodenv nvm nodeenv rbenv rvm newline
 #    command_execution_time status prompt_char
-     time host public_ip vpn_ip kubecontext aws gcloud newline
+     time host public_ip vpn_ip aws gcloud kubecontext newline
      disk_usage ram load wifi newline
      dir vcs background_jobs virtualenv newline
      command_execution_time status prompt_char
