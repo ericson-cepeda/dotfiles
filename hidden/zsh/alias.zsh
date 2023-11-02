@@ -8,7 +8,21 @@
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # alias fzf="$HOME/.vim/bundle/fzf/fzf"
-# fh - repeat history
+# fh - repeat 
+
+# This speeds up pasting w/ autosuggest
+# https://github.com/zsh-users/zsh-autosuggestions/issues/238
+pasteinit() {
+  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
+  zle -N self-insert url-quote-magic # I wonder if you'd need `.url-quote-magic`?
+}
+
+pastefinish() {
+  zle -N self-insert $OLD_SELF_INSERT
+}
+zstyle :bracketed-paste-magic paste-init pasteinit
+zstyle :bracketed-paste-magic paste-finish pastefinish
+
 _fh() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
 }
@@ -135,7 +149,8 @@ pb64() { pbpaste | base64 $1 | pbcopy }
 alias grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
 
 alias tmux="tmux -2u"
-alias tmub="tmux -2uL base attach || tmux -2uL base new"
+# alias tmub="tmux -2uL base attach || tmux -2uL base new"
+alias tmub="tmux -L base attach || tmux -L base new"
 alias tmug="echo $TMUX | cut -f1 -d','"
 alias tmur="tmux source-file ~/.tmux.conf"
 

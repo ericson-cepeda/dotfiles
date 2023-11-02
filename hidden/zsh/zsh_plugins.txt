@@ -1,11 +1,9 @@
-romkatv/powerlevel10k
-
 # this block is in alphabetic order
 ohmyzsh/ohmyzsh
 # ohmyzsh/ohmyzsh path:plugins/alias-finder
 ohmyzsh/ohmyzsh path:plugins/aws kind:defer
-ohmyzsh/ohmyzsh path:plugins/fzf
-ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/fzf kind:defer
+ohmyzsh/ohmyzsh path:plugins/git kind:defer
 # ohmyzsh/ohmyzsh path:plugins/pyenv
 # ohmyzsh/ohmyzsh path:plugins/rbenv
 # ohmyzsh/ohmyzsh path:plugins/globalias
@@ -13,7 +11,8 @@ ohmyzsh/ohmyzsh path:plugins/git
 # ohmyzsh/ohmyzsh path:plugins/history
 # ohmyzsh/ohmyzsh path:plugins/asdf
 
-rupa/z
+rupa/z kind:defer
+
 # zsh-users/zsh-completions
 zsh-users/zsh-autosuggestions kind:defer
 
@@ -21,3 +20,5 @@ zsh-users/zsh-autosuggestions kind:defer
 # zdharma/fast-syntax-highlighting
 zsh-users/zsh-history-substring-search kind:defer
 zsh-users/zsh-syntax-highlighting kind:defer
+
+romkatv/powerlevel10k

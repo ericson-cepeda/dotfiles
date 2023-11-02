@@ -16,7 +16,13 @@ find -L $HOME \( -name "*.zsh" -o -name ".zshrc" \) -type f -maxdepth 1 -print0 
   zcompile "$file"
 done
 
-builtin source ~/.zsh/vars.zsh
+# Compile zsh plugins if updated
+if [[ ! -f ${ZDOTDIR:-~}/.zsh_plugins.sh || ${ZDOTDIR:-~}/.zsh/zsh_plugins.txt -nt ${ZDOTDIR:-~}/.zsh_plugins.sh  ]]; then
+      zcompile ${ZDOTDIR:-~}/.zsh_plugins.sh
+      antidote bundle < ~/.zsh/zsh_plugins.txt > ${ZDOTDIR:-~}/.zsh_plugins.sh
+fi
+
+builtin source ~/.zsh/options.zsh
 
 # Path to your oh-my-zsh installation.
 
@@ -68,7 +74,7 @@ DISABLE_UPDATE_PROMPT="true"
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -101,6 +107,20 @@ plugins=(
   # zsh-syntax-highlighting
 )
 
+# https://htr3n.github.io/2018/07/faster-zsh/
+autoload -Uz compinit bashcompinit
+compinit -d
+bashcompinit -d
+
+# https://github.com/zsh-users/zsh-completions/issues/680
+ZSH_DISABLE_COMPFIX=true
+compaudit | xargs chmod g-w
+
+# Enable FZF completion
+autoload -Uz fzf-completion
+FZF_COMPLETION_TRIGGER=space
+FZF_COMPLETION_OPTS="--prompt='(fzf)'"
+
 case `uname` in
   Darwin)
     # commands for OS X go here
@@ -115,8 +135,6 @@ case `uname` in
   ;;
 esac
 
-builtin source ~/.zsh/options.zsh
-
 # https://callstack.com/blog/supercharge-your-terminal-with-zsh/
 # setopt auto_cd # cd by typing directory name if it's not a command
 # setopt correct_all # autocorrect commands
@@ -128,27 +146,33 @@ builtin source ~/.zsh/options.zsh
 # zstyle ':completion:*' group-name '' # group results by category
 # zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
 
-# https://htr3n.github.io/2018/07/faster-zsh/
-# autoload -Uz compinit
-# if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
-#  compinit
-# else
-#  compinit -C
-# fi
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# zprof = (anon) ~ 100ms
+[[ ! -f ~/.p10k.zsh ]] || builtin source ~/.p10k.zsh
+builtin source ~/.zsh/p10k.zsh
 
-# https://medium.com/@dannysmith/little-thing-2-speeding-up-zsh-f1860390f92
-# for dump in ~/.zcompdump(N.mh+24); do
-#  compinit
-# done
-# compinit -C
+builtin source ~/.zsh_plugins.sh
+#source <(antidote init)
 
 # Execute code in the background to not affect the current session
 {
+  # if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+  #  compinit
+  # else
+  #  compinit -C
+  # fi
+
+  # https://medium.com/@dannysmith/little-thing-2-speeding-up-zsh-f1860390f92
+  # for dump in ~/.zcompdump(N.mh+24); do
+  #  compinit
+  # done
+  # compinit -C
+
   # typeset -i updated_at=$(date +'%j' -r ~/.zcompdump 2>/dev/null || stat -f '%Sm' -t '%j' ~/.zcompdump 2>/dev/null)
   # if [ $(date +'%j') != $updated_at ]; then
-  #   compinit -i
+  #   compinit -i off
   # else
-  #   compinit -C -i
+  #   compinit -C -i off
   # fi
   # zmodload -i zsh/complist
 
@@ -168,7 +192,7 @@ builtin source ~/.zsh/options.zsh
 # RPROMPT="%B${return_code}%b"
 
 # User configuration
-
+builtin source ~/.zsh/vars.zsh
 builtin source ~/.zsh/alias.zsh
 
 [ -f ~/.env.zsh ] && builtin source ~/.env.zsh
@@ -179,19 +203,6 @@ builtin source ~/.zsh/alias.zsh
 #  eval $(ssh-agent); chmod 600 $HOME/.ssh/*{.pem,_rsa}; ssh-add ~/.ssh/*{.pem,_rsa};
 # } &!
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# zprof = (anon) ~ 100ms
-[[ ! -f ~/.p10k.zsh ]] || builtin source ~/.p10k.zsh
-builtin source ~/.zsh/p10k.zsh
-
-# Compile zsh plugins if updated
-if [[ ! -f ${ZDOTDIR:-~}/.zsh_plugins.sh || ${ZDOTDIR:-~}/.zsh/zsh_plugins.txt -nt ${ZDOTDIR:-~}/.zsh_plugins.sh  ]]; then
-      antidote bundle < ~/.zsh/zsh_plugins.txt > ${ZDOTDIR:-~}/.zsh_plugins.sh
-      zcompile ${ZDOTDIR:-~}/.zsh_plugins.sh
-fi
-builtin source ~/.zsh_plugins.sh
-#source <(antidote init)
-
 #bindkey '^[[A' history-substring-search-up
 #bindkey '^[[B' history-substring-search-down
 bindkey "$terminfo[kcuu1]" history-substring-search-up
@@ -201,10 +212,9 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 #bindkey '^[[3~' delete-char
 #bindkey '^[3;5~' delete-char
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
 # Init profiling
 # time zsh -i -c exit
 # zprof
-
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
