@@ -16,12 +16,6 @@ find -L $HOME \( -name "*.zsh" -o -name ".zshrc" \) -type f -maxdepth 1 -print0 
   zcompile "$file"
 done
 
-# Compile zsh plugins if updated
-if [[ ! -f ${ZDOTDIR:-~}/.zsh_plugins.sh || ${ZDOTDIR:-~}/.zsh/zsh_plugins.txt -nt ${ZDOTDIR:-~}/.zsh_plugins.sh  ]]; then
-      zcompile ${ZDOTDIR:-~}/.zsh_plugins.sh
-      antidote bundle < ~/.zsh/zsh_plugins.txt > ${ZDOTDIR:-~}/.zsh_plugins.sh
-fi
-
 builtin source ~/.zsh/options.zsh
 
 # Path to your oh-my-zsh installation.
@@ -121,6 +115,11 @@ autoload -Uz fzf-completion
 FZF_COMPLETION_TRIGGER=space
 FZF_COMPLETION_OPTS="--prompt='(fzf)'"
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+# zprof = (anon) ~ 100ms
+[[ ! -f ~/.p10k.zsh ]] || builtin source ~/.p10k.zsh
+builtin source ~/.zsh/p10k.zsh
+
 case `uname` in
   Darwin)
     # commands for OS X go here
@@ -135,6 +134,15 @@ case `uname` in
   ;;
 esac
 
+# Compile zsh plugins if updated
+if [[ ! -f ${ZDOTDIR:-~}/.zsh_plugins.sh || ${ZDOTDIR:-~}/.zsh/zsh_plugins.txt -nt ${ZDOTDIR:-~}/.zsh_plugins.sh  ]]; then
+      antidote bundle < ~/.zsh/zsh_plugins.txt > ${ZDOTDIR:-~}/.zsh_plugins.sh
+      zcompile ${ZDOTDIR:-~}/.zsh_plugins.sh
+fi
+
+builtin source ~/.zsh_plugins.sh
+#source <(antidote init)
+
 # https://callstack.com/blog/supercharge-your-terminal-with-zsh/
 # setopt auto_cd # cd by typing directory name if it's not a command
 # setopt correct_all # autocorrect commands
@@ -145,14 +153,6 @@ esac
 # zstyle ':completion:*' menu select # select completions with arrow keys
 # zstyle ':completion:*' group-name '' # group results by category
 # zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# zprof = (anon) ~ 100ms
-[[ ! -f ~/.p10k.zsh ]] || builtin source ~/.p10k.zsh
-builtin source ~/.zsh/p10k.zsh
-
-builtin source ~/.zsh_plugins.sh
-#source <(antidote init)
 
 # Execute code in the background to not affect the current session
 {
