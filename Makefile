@@ -8,7 +8,7 @@ DIR_LINK_FUNC := ${DIR_LINK}/make_func.sh
 
 all: config install-fonts install-neobundle
 
-all-osx: osx config config-osx link-dotfiles nvim vim-plug fonts
+all-osx: osx config config-osx link-dotfiles vim-plug fonts
 
 osx:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || true
@@ -55,7 +55,7 @@ config:
 	sudo chsh -s "$(shell command -v zsh)" "${USER}" || sudo usermod -s "$(shell command -v zsh)" "${USER}"
 	sudo chsh -s $(shell which zsh) || sudo usermod -s $(shell which zsh)
 	# tmux plugins
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true
 
 config-oh-my-zsh:
 	# ZSH plugins
@@ -77,7 +77,7 @@ vim-plug:
 	vim +PlugInstall
 
 fonts:
-	git clone https://github.com/powerline/fonts.git powerline-fonts | true
+	git clone https://github.com/powerline/fonts.git powerline-fonts || true
 	sh powerline-fonts/install.sh
 	mkdir -p ~/.local/share/fonts
 	cd ~/.local/share/fonts && curl -fLo DroidSansMonoForPowerlinePlusNerdFileTypes.otf https://github.com/ryanoasis/nerd-fonts/raw/0.5.1/patched-fonts/DroidSansMono/Droid%20Sans%20Mono%20for%20Powerline%20Plus%20Nerd%20File%20Types.otf

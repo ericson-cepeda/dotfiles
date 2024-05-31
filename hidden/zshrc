@@ -123,7 +123,7 @@ builtin source ~/.zsh/p10k.zsh
 case `uname` in
   Darwin)
     # commands for OS X go here
-    source /usr/local/opt/antidote/share/antidote/antidote.zsh
+    source $(brew --prefix)/opt/antidote/share/antidote/antidote.zsh
   ;;
   Linux)
     # commands for Linux go here
