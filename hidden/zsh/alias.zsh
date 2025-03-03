@@ -161,3 +161,8 @@ alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin)
 alias scp='noglob scp'
 
 alias update="antidote update && vim -c :PlugUpdate"
+
+# Alias for AWS ECR login
+alias ecrlogin="aws ecr get-login-password | podman login -u AWS --password-stdin \"https://\$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.\$(aws configure get region).amazonaws.com\""
+
+alias docker="podman"

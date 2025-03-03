@@ -12,7 +12,7 @@ all-osx: osx config config-osx link-dotfiles vim-plug fonts
 
 osx:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || true
-	brew install python ruby asdf pyenv rbenv jenv pipenv warrensbox/tap/tfswitch
+	brew install python ruby asdf pyenv rbenv jenv pipenv warrensbox/tap/tfswitch podman podman-compose podman-desktop
 	# sudo easy_install pip
 	brew install fzf zsh tmux
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true

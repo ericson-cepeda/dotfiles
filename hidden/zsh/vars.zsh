@@ -35,7 +35,15 @@ export $(cat ${HOME}/.env |xargs)
 
 # Commands below are done through ZSH plugins using antidote
 # rbenv
-#eval "$(rbenv init -)"
+if command -v rbenv 1>/dev/null 2>&1; then
+      # Necessary to override the system ruby
+      # eval "$(rbenv init -)"
+fi
+# jenv
+if command -v jenv 1>/dev/null 2>&1; then
+      eval "$(jenv init -)"
+fi
+
 # pyenv
 #export PATH="/Users/ecepeda/.pyenv/bin:$PATH"
 #eval "$(pyenv init - --no-rehash)"

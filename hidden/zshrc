@@ -218,3 +218,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # Init profiling
 # time zsh -i -c exit
 # zprof
+
+# AWS CDK docker overwrite
+export CDK_DOCKER=podman
