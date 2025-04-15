@@ -8,7 +8,7 @@ DIR_LINK_FUNC := ${DIR_LINK}/make_func.sh
 
 all: config install-fonts install-neobundle
 
-all-osx: osx config config-osx link-dotfiles vim-plug fonts
+all-osx: osx config config-osx link-dotfiles vim-plug
 
 osx:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || true

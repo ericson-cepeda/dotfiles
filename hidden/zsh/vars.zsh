@@ -1,8 +1,13 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export HISTFILE="${HOME}/.dotfiles/private/hidden/zsh_history"
-fc -p "${HOME}/.dotfiles/private/hidden/zsh_history"
+if [ -d "${HOME}/.dotfiles/private/hidden/zsh_history" ]; then
+  export HISTFILE="${HOME}/.dotfiles/private/hidden/zsh_history"
+  fc -p "${HOME}/.dotfiles/private/hidden/zsh_history"
+else
+  export HISTFILE="${HOME}/.zsh_history"
+  fc -p "${HOME}/.zsh_history"
+fi
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
