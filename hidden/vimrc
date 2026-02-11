@@ -116,7 +116,7 @@ Plug 'edkolev/tmuxline.vim'
 " Python
 Plug 'jmcantrell/vim-virtualenv'
 " Snippets
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " Colors
 " Plug 'altercation/vim-colors-solarized'
