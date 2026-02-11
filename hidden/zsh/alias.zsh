@@ -166,3 +166,5 @@ alias update="antidote update && vim -c :PlugUpdate"
 alias ecrlogin="aws ecr get-login-password | podman login -u AWS --password-stdin \"https://\$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.\$(aws configure get region).amazonaws.com\""
 
 alias docker="podman"
+
+alias sops-edit="EDITOR=\"cursor --wait --new-window --disable-extensions\" sops "
