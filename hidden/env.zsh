@@ -55,3 +55,5 @@ export GPG_TTY
 
 # Pipenv
 export WORKON_HOME=$HOME/repos/.virtualenvs
+
+[[ -f "$HOME/.env.secrets" ]] && builtin source "$HOME/.env.secrets"
