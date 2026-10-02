@@ -1,5 +1,7 @@
 # DEV constants
 
+[[ -f "$HOME/.env.secrets" ]] && builtin source "$HOME/.env.secrets"
+
 export ANDROID_SDK_ROOT="/Users/${USER}/Library/Android/sdk"
 export ANDROID_SDK_HOME="/Users/${USER}/Library/Android/sdk"
 
@@ -55,5 +57,3 @@ export GPG_TTY
 
 # Pipenv
 export WORKON_HOME=$HOME/repos/.virtualenvs
-
-[[ -f "$HOME/.env.secrets" ]] && builtin source "$HOME/.env.secrets"
