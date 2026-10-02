@@ -160,7 +160,7 @@ alias -s {yml,yaml}=vim
 alias yaml2js="python -c 'import sys, yaml, json; json.dump(yaml.load(sys.stdin), sys.stdout, indent=4)'"
 alias scp='noglob scp'
 
-alias update="antidote update && vim -c :PlugUpdate"
+alias update="antidote update && uv tool upgrade --all && vim -c :PlugUpdate"
 
 # Alias for AWS ECR login
 alias ecrlogin="aws ecr get-login-password | podman login -u AWS --password-stdin \"https://\$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.\$(aws configure get region).amazonaws.com\""

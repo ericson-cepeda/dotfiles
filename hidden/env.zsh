@@ -57,3 +57,9 @@ export GPG_TTY
 
 # Pipenv
 export WORKON_HOME=$HOME/repos/.virtualenvs
+
+# Certificates issues
+export UV_NATIVE_TLS=true
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
+export CLAUDE_CODE_USE_BEDROCK=1

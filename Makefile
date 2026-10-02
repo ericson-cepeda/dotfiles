@@ -12,7 +12,7 @@ all-osx: osx config config-osx link-dotfiles vim-plug
 
 osx:
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || true
-	brew install python ruby asdf pyenv rbenv jenv pipenv warrensbox/tap/tfswitch podman podman-compose podman-desktop
+	brew install python uv ruby asdf rbenv jenv warrensbox/tap/tfswitch podman podman-compose podman-desktop
 	# sudo easy_install pip
 	brew install fzf zsh tmux
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true
@@ -34,6 +34,12 @@ nvim:
 	$(shell mkdir -p ${XDG_CONFIG_HOME:=${HOME}/.config})
 	ln -s ~/.vim ${XDG_CONFIG_HOME:=${HOME}}/.config/nvim
 	ln -s ~/.vimrc ${XDG_CONFIG_HOME:=${HOME}}/.config/nvim/init.vim
+
+uv:
+	uv tool install ruff
+	uv tool install pyupgrade
+	uv tool install --with tox-uv tox
+	uv tool install fasttyper
 
 config-osx:
 	brew install ncurses ctags vim neovim ag antidote
